@@ -1,0 +1,244 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* Rainbow Tour Guides Brand Color System */
+  /* Primary: Orange - Main CTA, highlights */
+  --primary: hsl(25, 87%, 59%);           /* #F28E3D */
+  --primary-foreground: hsl(0, 0%, 100%);
+
+  /* Accent: Purple - Secondary CTA, filters, brand flourish */
+  --accent: hsl(250, 77%, 63%);           /* #6C5CE7 */
+  --accent-foreground: hsl(0, 0%, 100%);
+
+  /* Neutral: Light backgrounds and text */
+  --background: hsl(210, 20%, 98%);       /* #F9FAFB - neutral-50 */
+  --foreground: hsl(220, 39%, 11%);       /* #111827 - neutral-900 */
+
+  /* Card surfaces */
+  --card: hsl(0, 0%, 100%);
+  --card-foreground: hsl(220, 39%, 11%);
+
+  /* Popovers */
+  --popover: hsl(0, 0%, 100%);
+  --popover-foreground: hsl(220, 39%, 11%);
+
+  /* Secondary: Warm neutral */
+  --secondary: hsl(36, 33%, 90%);
+  --secondary-foreground: hsl(215, 25%, 27%);  /* #374151 - neutral-700 */
+
+  /* Muted: Light neutral */
+  --muted: hsl(210, 20%, 98%);            /* #F9FAFB */
+  --muted-foreground: hsl(215, 25%, 27%); /* #374151 */
+
+  /* Destructive: Red for errors */
+  --destructive: hsl(0, 84%, 60%);        /* #EF4444 */
+  --destructive-foreground: hsl(0, 0%, 100%);
+
+  /* Borders and inputs */
+  --border: hsl(214, 14%, 90%);           /* #E5E7EB - neutral-200 */
+  --input: hsl(214, 14%, 90%);
+  --ring: hsl(25, 87%, 59%);              /* Match primary */
+
+  /* Semantic colors for charts */
+  --chart-1: hsl(25, 87%, 59%);           /* Primary orange */
+  --chart-2: hsl(158, 64%, 52%);          /* #10B981 - success */
+  --chart-3: hsl(250, 77%, 63%);          /* Accent purple */
+  --chart-4: hsl(43, 96%, 56%);           /* #F59E0B - warning */
+  --chart-5: hsl(221, 83%, 53%);          /* #3B82F6 - info */
+
+  /* Sidebar colors */
+  --sidebar-background: hsl(210, 20%, 98%);
+  --sidebar-foreground: hsl(220, 39%, 11%);
+  --sidebar-primary: hsl(25, 87%, 59%);
+  --sidebar-primary-foreground: hsl(0, 0%, 100%);
+  --sidebar-accent: hsl(214, 14%, 90%);
+  --sidebar-accent-foreground: hsl(215, 25%, 27%);
+  --sidebar-border: hsl(214, 14%, 90%);
+  --sidebar-ring: hsl(25, 87%, 59%);
+
+  /* Typography */
+  --font-sans: Inter, system-ui, sans-serif;
+  --font-serif: 'DM Serif Display', Georgia, serif;
+  --font-mono: Menlo, monospace;
+
+  /* Border radius - updated to brand standard */
+  --radius: 1rem;
+}
+
+.dark {
+  /* Dark mode: neutral-900 background */
+  --background: hsl(220, 39%, 11%);       /* #111827 - neutral-900 */
+  --foreground: hsl(210, 20%, 98%);       /* #F9FAFB - neutral-50 */
+
+  --card: hsl(215, 28%, 17%);             /* #1F2933 - neutral-800 */
+  --card-foreground: hsl(210, 20%, 98%);
+
+  --popover: hsl(220, 39%, 11%);
+  --popover-foreground: hsl(210, 20%, 98%);
+
+  /* Keep brand colors same in dark mode */
+  --primary: hsl(25, 87%, 59%);           /* #F28E3D */
+  --primary-foreground: hsl(0, 0%, 100%);
+
+  --accent: hsl(250, 77%, 63%);           /* #6C5CE7 */
+  --accent-foreground: hsl(0, 0%, 100%);
+
+  --secondary: hsl(215, 28%, 17%);
+  --secondary-foreground: hsl(210, 20%, 98%);
+
+  --muted: hsl(215, 28%, 17%);
+  --muted-foreground: hsl(215, 25%, 27%);
+
+  --destructive: hsl(0, 84%, 60%);
+  --destructive-foreground: hsl(0, 0%, 100%);
+
+  --border: hsl(215, 28%, 17%);
+  --input: hsl(215, 28%, 17%);
+  --ring: hsl(25, 87%, 59%);
+
+  --sidebar-background: hsl(220, 39%, 11%);
+  --sidebar-foreground: hsl(210, 20%, 98%);
+  --sidebar-primary: hsl(25, 87%, 59%);
+  --sidebar-primary-foreground: hsl(0, 0%, 100%);
+  --sidebar-accent: hsl(215, 28%, 17%);
+  --sidebar-accent-foreground: hsl(210, 20%, 98%);
+  --sidebar-border: hsl(215, 28%, 17%);
+  --sidebar-ring: hsl(25, 87%, 59%);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-sans antialiased bg-background text-foreground;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+}
+
+/* Brand Utility Classes */
+
+/* Glassmorphism - Apple-style liquid glass */
+@layer components {
+  .glass-card {
+    @apply bg-white/80 backdrop-blur-glass border border-white/40 shadow-glass rounded-2xl;
+  }
+
+  .glass-nav {
+    @apply bg-white/80 backdrop-blur-glass border-b border-white/40 shadow-glass;
+  }
+
+  .text-display {
+    @apply font-serif;
+  }
+}
+
+/* Rainbow gradient utilities - updated to brand orange */
+.rainbow-gradient {
+  background: linear-gradient(135deg, #F28E3D 0%, #E0671D 100%);
+}
+
+.rainbow-text {
+  background: linear-gradient(135deg, #F28E3D 0%, #E0671D 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.pride-ring {
+  position: relative;
+}
+
+/* Brand transitions - smooth cubic-bezier easing */
+.transition-brand {
+  transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Hide scrollbar for horizontal carousel */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Micro-interactions - Buttons */
+@layer components {
+  .btn-lift {
+    transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .btn-lift:hover:not(:disabled) {
+    @apply -translate-y-0.5 shadow-lg;
+  }
+
+  .btn-lift:active:not(:disabled) {
+    @apply translate-y-0 shadow-md;
+  }
+
+  /* Card hover effects */
+  .card-hover {
+    transition: all 300ms cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .card-hover:hover {
+    @apply scale-[1.02] shadow-glass;
+  }
+
+  /* Smooth momentum scroll */
+  .momentum-scroll {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+.pride-ring::before {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 50%;
+  padding: 3px;
+  background: #ff3a3a;
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.nav-blur {
+  backdrop-filter: blur(12px);
+  background: hsla(36, 39%, 97%, 0.8);
+}
+
+.dark .nav-blur {
+  background: hsla(0, 0%, 0%, 0.8);
+}
+
+.hover-lift {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.hover-lift:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 24px -8px hsla(24, 10%, 15%, 0.15);
+}
+
+.dark .hover-lift:hover {
+  box-shadow: 0 12px 24px -8px hsla(0, 0%, 0%, 0.5);
+}
+
+.focus-ring:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+}
+
+.demo-banner {
+  background: #ff3a3a;
+}

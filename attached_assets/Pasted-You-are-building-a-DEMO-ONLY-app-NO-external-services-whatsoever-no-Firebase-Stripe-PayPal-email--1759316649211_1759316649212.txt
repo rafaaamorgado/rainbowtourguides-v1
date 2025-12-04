@@ -1,0 +1,40 @@
+You are building a DEMO-ONLY app. NO external services whatsoever (no Firebase/Stripe/PayPal/email). Use the attached PRD “Rainbow Tour Guides — Click-Through MVP (Demo) — PRD v1.md” and the attached /seed/cities.json + /seed/guides.json and /public/hero.jpg.
+
+Do this as ONE step:
+
+1) Create (or adapt the existing) app as either Next.js App Router OR Vite+Express+React (keep whatever is already here).
+2) Implement a Mock Service Layer:
+   - src/mock/db.ts loads/saves .tmp/mockdb.json; if FS is blocked, fallback to in-memory with a console warning.
+   - src/mock/repo/* for cities, guides, availability, reservations/bookings, conversations/messages, reviews, reports.
+   - Route handlers (Next.js app/api/* or Express routes) that call the repos:
+     GET /api/cities/:slug/guides
+     GET /api/guides/:handle
+     POST /api/bookings/request
+     POST /api/bookings/:id/respond
+     POST /api/conversations/:id/messages
+     GET  /api/healthz -> 200 "ok"
+3) Pages (minimal but working):
+   / (hero using /public/hero.jpg, CTA “Explore cities”)
+   /explore (city typeahead to city pages)
+   /cities/[slug] (list guides + filters: languages, themes, rating, available-on-date — client filter is fine)
+   /guides/[handle] (photos, bio, prices 4/6/8, availability preview, reviews, BookingForm)
+   /auth/demo-login (DemoAuth: choose Traveler / pick existing Guide / Assume admin)
+   /dashboard (role-aware shell with Traveler & Guide tabs)
+   /reservation/[id] (detail + ChatThread)
+   /admin (tables for Users/Guides/Bookings/Reviews with demo actions)
+   /dev/seed (button that imports /seed/*.json and generates reviews+availability)
+   /dev/reset (clears .tmp/mockdb.json then reseeds)
+4) BookingForm (client-side):
+   - Multi-day sessions; 24h lead-time check (client OK).
+   - POST /api/bookings/request to create reservation(pending) + booking(pending); show success.
+5) Visual & a11y:
+   - Tailwind + shadcn; Inter + Source Serif Pro; rainbow accents with WCAG-AA contrast.
+   - Site-wide banner: “Demo build — no real accounts or payments.”
+6) Env:
+   - .env.sample with NEXT_PUBLIC_ENV=demo and NEXT_PUBLIC_DEMO_MODE=1
+
+When done: 
+- RUN the app (`npm run dev`), 
+- PRINT the local URL, 
+- PRINT direct links to /dev/seed, /cities/paris, /auth/demo-login, and 
+- CONFIRM whether persistence is file-based (.tmp/mockdb.json) or in-memory.

@@ -1,0 +1,37 @@
+[
+  {
+    "id": "barcelona",
+    "name": "Barcelona",
+    "slug": "barcelona",
+    "country": "Spain",
+    "timezone": "Europe/Madrid"
+  },
+  {
+    "id": "paris",
+    "name": "Paris",
+    "slug": "paris",
+    "country": "France",
+    "timezone": "Europe/Paris"
+  },
+  {
+    "id": "lisbon",
+    "name": "Lisbon",
+    "slug": "lisbon",
+    "country": "Portugal",
+    "timezone": "Europe/Lisbon"
+  },
+  {
+    "id": "saigon",
+    "name": "Ho Chi Minh City",
+    "slug": "saigon",
+    "country": "Vietnam",
+    "timezone": "Asia/Ho_Chi_Minh"
+  },
+  {
+    "id": "bangkok",
+    "name": "Bangkok",
+    "slug": "bangkok",
+    "country": "Thailand",
+    "timezone": "Asia/Bangkok"
+  }
+]
