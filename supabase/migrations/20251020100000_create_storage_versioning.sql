@@ -185,10 +185,13 @@ GROUP BY uploaded_by, bucket_id;
 GRANT SELECT ON user_storage_quota TO authenticated;
 
 -- Create policy for users to view their own quota
-CREATE POLICY "Users can view own quota"
-  ON user_storage_quota FOR SELECT
-  TO authenticated
-  USING (user_id = auth.uid());
+-- Create policy for users to view their own quota
+-- NOTE: user_storage_quota is a VIEW, so standard policies cannot be applied directly.
+-- Security is handled by the underlying `storage_versions` table policies.
+-- CREATE POLICY "Users can view own quota"
+--   ON user_storage_quota FOR SELECT
+--   TO authenticated
+--   USING (user_id = auth.uid());
 
 -- Create function to get user's total storage usage
 CREATE OR REPLACE FUNCTION get_user_storage_usage(p_user_id uuid)
