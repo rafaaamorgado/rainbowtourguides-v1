@@ -123,11 +123,20 @@ app.use((req, res, next) => {
   // this serves both the API and the client.
   // It is the only port that is not firewalled.
   const port = parseInt(process.env.PORT || '5000', 10);
-  server.listen({
-    port,
-    host: "0.0.0.0",
-    reusePort: true,
-  }, () => {
-    log(`serving on port ${port}`);
-  });
+
+  // In Vercel, the app is exported and handled by the platform.
+  // We only start the server if we are running locally or in a container (not imported).
+  // Checking process.env.VERCEL is a good hint, but strictly we want to know if we are the entry point.
+  // For this setup, checking if VERCEL is set is a safe enough proxy for "don't listen".
+  if (!process.env.VERCEL) {
+    server.listen({
+      port,
+      host: "0.0.0.0",
+      reusePort: true,
+    }, () => {
+      log(`serving on port ${port}`);
+    });
+  }
 })();
+
+export default app;
