@@ -83,6 +83,9 @@ export interface IStorage {
   listCities(): Promise<City[]>;
   getCityBySlug(slug: string): Promise<City | undefined>;
   getCityById(id: string): Promise<City | undefined>;
+  createCity(city: Omit<City, "id">): Promise<City>;
+  updateCity(id: string, updates: Partial<City>): Promise<City | undefined>;
+  deleteCity(id: string): Promise<boolean>;
 
   // Availability Slots
   createSlot(slot: Omit<AvailabilitySlot, "id" | "created_at" | "updated_at">): Promise<AvailabilitySlot>;
@@ -106,22 +109,24 @@ export interface IStorage {
 export class SupabaseStorage implements IStorage {
   private client: SupabaseClient;
 
-  constructor() {
-    const supabaseUrl = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL;
-    const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY;
+  constructor(client?: SupabaseClient) {
+    if (client) {
+      this.client = client;
+    } else {
+      const supabaseUrl = process.env.VITE_SUPABASE_URL || process.env.SUPABASE_URL;
+      const supabaseKey = process.env.VITE_SUPABASE_ANON_KEY || process.env.SUPABASE_ANON_KEY;
 
-    if (!supabaseUrl || !supabaseKey) {
-      console.error("Supabase URL:", supabaseUrl);
-      console.error("Supabase Key exists:", !!supabaseKey);
-      throw new Error("Missing Supabase environment variables. Please check your .env file.");
+      if (!supabaseUrl || !supabaseKey) {
+        throw new Error("Missing Supabase credentials");
+      }
+
+      this.client = createClient(supabaseUrl, supabaseKey, {
+        auth: {
+          persistSession: false,
+          autoRefreshToken: false,
+        },
+      });
     }
-
-    this.client = createClient(supabaseUrl, supabaseKey, {
-      auth: {
-        persistSession: false,
-        autoRefreshToken: false,
-      },
-    });
   }
 
   async seed(data: any): Promise<void> {
@@ -142,7 +147,8 @@ export class SupabaseStorage implements IStorage {
       "availability",
       "guide_profiles",
       "traveler_profiles",
-      "users"
+      "users",
+      "cities"
     ];
 
     for (const table of tables) {
@@ -286,7 +292,7 @@ export class SupabaseStorage implements IStorage {
   async createGuide(guide: GuideProfile): Promise<GuideProfile> {
     const { data, error } = await this.client
       .from("guide_profiles")
-      .insert(guide)
+      .upsert(guide)
       .select()
       .single();
 
@@ -658,9 +664,12 @@ export class SupabaseStorage implements IStorage {
 
   // Reviews
   async createReview(review: Omit<Review, "id">): Promise<Review> {
+    // Remove fields that might not exist in the DB schema if migrations aren't fully applied
+    const { editedAt, responseAt, originalText, ...safeReview } = review as any;
+
     const { data, error } = await this.client
       .from("reviews")
-      .insert(review)
+      .insert(safeReview)
       .select()
       .single();
 
@@ -769,7 +778,7 @@ export class SupabaseStorage implements IStorage {
   }
 
   async updateReport(id: string, updates: Partial<Report>): Promise<Report | undefined> {
-    const { data, error} = await this.client
+    const { data, error } = await this.client
       .from("reports")
       .update(updates)
       .eq("id", id)
@@ -832,7 +841,7 @@ export class SupabaseStorage implements IStorage {
   async createCity(city: Omit<City, "id" | "created_at">): Promise<City> {
     const { data, error } = await this.client
       .from("cities")
-      .insert(city)
+      .upsert(city, { onConflict: "slug" })
       .select()
       .single();
 
