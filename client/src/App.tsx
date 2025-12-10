@@ -9,7 +9,6 @@ import { ThemeProvider } from "@/lib/theme";
 import MainNav from "@/components/layout/MainNav";
 import MainFooter from "@/components/layout/MainFooter";
 import CookieBanner from "@/components/CookieBanner";
-import AnnouncementBanner from "@/components/AnnouncementBanner";
 
 // Eager-loaded pages (main user flows)
 import Home from "@/pages/Home";
@@ -185,16 +184,11 @@ function App() {
       <ThemeProvider>
         <PreferencesProvider>
           <TooltipProvider>
-            {/* Demo Banner */}
-            <div className="demo-banner text-white py-2 px-4 text-center text-sm">
-              <i className="fas fa-info-circle mr-2"></i>
-              <strong>Demo Build</strong> — No real accounts or payments. All data is for demonstration purposes only.
-            </div>
+
 
             {/* Main Layout Wrapper */}
             <div className="min-h-screen bg-neutral-50 flex flex-col">
               <MainNav />
-              <AnnouncementBanner />
 
               {/* Main Content Area */}
               <main className="flex-1">

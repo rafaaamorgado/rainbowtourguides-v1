@@ -110,7 +110,7 @@ function initializeGoogleAnalytics(): void {
 
   // Initialize gtag
   window.dataLayer = window.dataLayer || [];
-  window.gtag = function() {
+  window.gtag = function () {
     window.dataLayer.push(arguments);
   };
   window.gtag("js", new Date());
@@ -148,13 +148,11 @@ function removeGoogleAnalytics(): void {
 function initializeMarketingTools(): void {
   // Placeholder for marketing tools initialization
   // Add Facebook Pixel, LinkedIn Insight Tag, etc. as needed
-  console.log("Marketing tools initialized");
 }
 
 function removeMarketingTools(): void {
   // Placeholder for marketing tools removal
   // Remove marketing pixels and clear their cookies
-  console.log("Marketing tools removed");
 }
 
 // Type declarations for global window properties

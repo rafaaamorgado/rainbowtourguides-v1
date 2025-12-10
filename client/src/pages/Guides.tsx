@@ -252,8 +252,8 @@ export default function Guides() {
                 <GuideCardBrand
                   key={guide.uid}
                   guide={guide}
-                  onMessage={() => console.log("Message", guide.handle)}
-                  onCall={() => console.log("Call", guide.handle)}
+                  onMessage={() => { }}
+                  onCall={() => { }}
                 />
               ))}
             </div>
